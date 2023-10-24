@@ -1,19 +1,10 @@
-import "./App.css";
+import { Outlet, Link } from "react-router-dom";
+import "../../App.css";
 import { useState } from "react";
-//import DeliveryDetails from "./pages/DeliveryDetails";
-import Home from "./pages/Home";
-//import Navbar from "./components/layout/navbar";
-// import Invoices from "./pages/Invoices";
-import LogDelivery from "./pages/LogDelivery";
-// import Login from "./pages/Login";
-// import LogStock from "./pages/LogStock";
-//import StockInput from "./pages/StockInput";
-// import StockList from "./pages/StockList";
-//import SupplierInput from "./pages/SupplierInput";
-// import SupplierList from "./pages/SupplierList";
 
 function App() {
   const [status, setStatus] = useState(false);
+
   const handleNav = (s) => {
     setStatus(s);
     console.log(status);
@@ -23,6 +14,11 @@ function App() {
     const dialog = document.querySelector("dialog");
     dialog.showModal();
   };
+  const handleCloseClick = () => {
+    const dialog = document.querySelector("dialog");
+    dialog.close();
+  };
+
   return (
     <div className='App'>
       <nav>
@@ -48,16 +44,31 @@ function App() {
           </svg>
         </div>
       </nav>
-      <LogDelivery />
+      <Outlet />
       <dialog id='dialog'>
         <div class='text-center text-lg'>
-          <p class='m-5'>Home</p>
-          <p class='m-5'>Log Delivery</p>
-          <p class='m-5'>Log Stock</p>
+          <Link to='/' onClick={() => handleCloseClick()} class='m-5'>
+            Home
+          </Link>
+          <Link
+            to='/new-delivery'
+            onClick={() => handleCloseClick()}
+            class='m-5'>
+            Log Delivery
+          </Link>
+          {/* <Link to='/new-stock' onClick={() => handleCloseClick()} class='m-5'>
+            Log Stock
+          </Link>
           <hr></hr>
-          <p class='m-5'>Suppliers</p>
-          <p class='m-5'>Stock</p>
-          <p class='m-5'>Invoices</p>
+          <Link to='/suppliers' onClick={() => handleCloseClick()} class='m-5'>
+            Suppliers
+          </Link>
+          <Link to='/stock' onClick={() => handleCloseClick()} class='m-5'>
+            Stock
+          </Link>
+          <Link to='/invoices' onClick={() => handleCloseClick()} class='m-5'>
+            Invoices
+          </Link> */}
         </div>
       </dialog>
     </div>
